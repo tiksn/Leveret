@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Markup.Xaml;
 
-namespace Leveret
+namespace TIKSN.Leveret
 {
     public class App : Application
     {

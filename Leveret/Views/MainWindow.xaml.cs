@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace Leveret.Views
+namespace TIKSN.Leveret.Views
 {
     public class MainWindow : Window
     {
