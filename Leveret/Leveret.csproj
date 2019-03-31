@@ -3,7 +3,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <RootNamespace>TIKSN.Leveret</RootNamespace>
-    <AssemblyName>TIKSN.Leveret</AssemblyName>
+    <AssemblyName>Leveret</AssemblyName>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -19,5 +20,6 @@
     <PackageReference Include="Avalonia" Version="0.7.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.7.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.7.0" />
+    <PackageReference Include="TIKSN-Framework" Version="3.2.0-alpha.8" />
   </ItemGroup>
 </Project>
