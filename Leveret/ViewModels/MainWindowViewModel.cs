@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Leveret.ViewModels
+namespace TIKSN.Leveret.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

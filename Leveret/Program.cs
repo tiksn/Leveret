@@ -1,10 +1,10 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Logging.Serilog;
-using Leveret.ViewModels;
-using Leveret.Views;
+using TIKSN.Leveret.ViewModels;
+using TIKSN.Leveret.Views;
 
-namespace Leveret
+namespace TIKSN.Leveret
 {
     class Program
     {

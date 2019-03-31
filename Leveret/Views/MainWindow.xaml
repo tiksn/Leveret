@@ -1,13 +1,13 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:Leveret.ViewModels;assembly=Leveret"
-        Icon="resm:Leveret.Assets.avalonia-logo.ico"
+        xmlns:vm="clr-namespace:TIKSN.Leveret.ViewModels;assembly=Leveret"
+        Icon="resm:TIKSN.Leveret.Assets.avalonia-logo.ico"
         Title="Leveret">
 
   <Design.DataContext>
     <vm:MainWindowViewModel/>
   </Design.DataContext>
-  
+
   <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-  
+
 </Window>

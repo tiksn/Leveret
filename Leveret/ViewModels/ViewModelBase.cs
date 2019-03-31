@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ReactiveUI;
 
-namespace Leveret.ViewModels
+namespace TIKSN.Leveret.ViewModels
 {
     public class ViewModelBase : ReactiveObject
     {

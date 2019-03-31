@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using Leveret.ViewModels;
+using TIKSN.Leveret.ViewModels;
 
-namespace Leveret
+namespace TIKSN.Leveret
 {
     public class ViewLocator : IDataTemplate
     {
