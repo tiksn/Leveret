@@ -5,9 +5,18 @@
         Title="Leveret">
 
   <Design.DataContext>
-    <vm:MainWindowViewModel/>
+    <vm:MainWindowViewModel />
   </Design.DataContext>
 
-  <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="17*" />
+      <ColumnDefinition Width="3*" />
+    </Grid.ColumnDefinitions>
 
+    <TextBox TextWrapping="NoWrap" AcceptsReturn="True" FontSize="48" FontFamily="Consolas" Text="{Binding InputSourceCode}" />
+
+    <TextBlock Grid.Column="1" Text="{Binding InputSourceCode}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+  </Grid>
 </Window>
