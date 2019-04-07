@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>TIKSN.Leveret.BusinessLogic</RootNamespace>
+    <AssemblyName>TIKSN.Leveret.BusinessLogic</AssemblyName>
+  </PropertyGroup>
+
+</Project>
