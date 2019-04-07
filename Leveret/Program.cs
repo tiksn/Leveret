@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Logging.Serilog;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using TIKSN.Leveret.ViewModels;
 using TIKSN.Leveret.Views;
 
@@ -17,6 +18,7 @@ namespace TIKSN.Leveret
 
         private static void Main(string[] args)
         {
+            Console.Title = "Leveret";
             var configurationRootSetup = new ConfigurationRootSetup(args);
             var configurationRoot = configurationRootSetup.GetConfigurationRoot();
             var compositionRootSetup = new CompositionRootSetup(configurationRoot);
