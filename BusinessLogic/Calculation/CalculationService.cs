@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using Mond;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,8 +18,28 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
 
         public async Task<string> CalculateAsync(string sourceCode, CancellationToken cancellationToken)
         {
-            _logger.LogInformation(sourceCode);
-            return sourceCode;
+            var state = new MondState()
+            {
+                Options = new MondCompilerOptions()
+                {
+                    MakeRootDeclarationsGlobal = true,
+                    UseImplicitGlobals = true
+                }
+            };
+
+            try
+            {
+                var result = state.Run(sourceCode);
+                _logger.LogInformation($"Type: {result.Type}, IsEnumerable: {result.IsEnumerable}, IsLocked: {result.IsLocked}");
+
+                return result.Serialize();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+            }
+
+            return string.Empty;
         }
     }
 }
