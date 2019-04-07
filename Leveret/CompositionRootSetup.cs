@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TIKSN.DependencyInjection;
+using TIKSN.Leveret.BusinessLogic.Calculation;
 using TIKSN.Leveret.ViewModels;
 
 namespace TIKSN.Leveret
@@ -15,6 +16,7 @@ namespace TIKSN.Leveret
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             builder.RegisterType<MainWindowViewModel>().AsSelf().SingleInstance();
+            builder.RegisterType<CalculationService>().As<ICalculationService>().SingleInstance();
         }
 
         protected override void ConfigureOptions(IServiceCollection services, IConfigurationRoot configuration)

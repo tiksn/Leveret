@@ -4,10 +4,6 @@
         Icon="resm:TIKSN.Leveret.Assets.avalonia-logo.ico"
         Title="Leveret">
 
-  <Design.DataContext>
-    <vm:MainWindowViewModel />
-  </Design.DataContext>
-
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="17*" />
