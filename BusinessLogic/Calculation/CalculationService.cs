@@ -32,7 +32,14 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
                 var result = state.Run(sourceCode);
                 _logger.LogInformation($"Type: {result.Type}, IsEnumerable: {result.IsEnumerable}, IsLocked: {result.IsLocked}");
 
-                return result.Serialize();
+                var globalVariables = state.Run("return global;").Object.Where(x=>x.Value.Type != MondValueType.Function && x.Value.Type != MondValueType.Object);
+
+                return string.Join(',', globalVariables.Select(x => $"{x.Key}={x.Value}"));
+
+                if (result.Type == MondValueType.Undefined)
+                    return string.Empty;
+
+                return result.ToString();
             }
             catch (Exception ex)
             {
