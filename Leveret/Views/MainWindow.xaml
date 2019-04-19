@@ -12,7 +12,7 @@
 
     <TextBox TextWrapping="NoWrap" AcceptsReturn="True" FontSize="48" FontFamily="Consolas" Text="{Binding InputSourceCode}" />
 
-    <TextBlock Grid.Column="1" Text="{Binding ExecutionResults}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <TextBlock Grid.Column="1" Text="{Binding ExecutionResults}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontFamily="Consolas"/>
 
   </Grid>
 </Window>

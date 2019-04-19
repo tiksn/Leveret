@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Mond;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +35,12 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
 
                 var globalVariables = state.Run("return global;").Object.Where(x=>x.Value.Type != MondValueType.Function && x.Value.Type != MondValueType.Object);
 
-                return string.Join(',', globalVariables.Select(x => $"{x.Key}={x.Value}"));
+                foreach (var globalVariable in globalVariables)
+                {
+                    Debug.WriteLine($"{globalVariable.Key}: {globalVariable.Value}");
+
+                }
+                return string.Join(Environment.NewLine, globalVariables.Select(x => $"{x.Key}={x.Value}"));
 
                 if (result.Type == MondValueType.Undefined)
                     return string.Empty;
