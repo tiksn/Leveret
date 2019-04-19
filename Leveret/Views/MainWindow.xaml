@@ -4,15 +4,20 @@
         Icon="resm:TIKSN.Leveret.Assets.avalonia-logo.ico"
         Title="Leveret">
 
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="17*" />
-      <ColumnDefinition Width="3*" />
-    </Grid.ColumnDefinitions>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="17*" />
+			<ColumnDefinition Width="3*" />
+		</Grid.ColumnDefinitions>
 
-    <TextBox TextWrapping="NoWrap" AcceptsReturn="True" FontSize="48" FontFamily="Consolas" Text="{Binding InputSourceCode}" />
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TextBox TextWrapping="NoWrap" AcceptsReturn="True" FontSize="48" FontFamily="Consolas" Text="{Binding InputSourceCode}" />
 
-    <TextBlock Grid.Column="1" Text="{Binding ExecutionResults}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontFamily="Consolas"/>
+		<TextBlock Grid.Column="1" Text="{Binding ExecutionResults}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontFamily="Consolas"/>
 
-  </Grid>
+		<TextBlock Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding ExecutionResults.Message}" Foreground="Red" Background="Yellow" />
+	</Grid>
 </Window>
