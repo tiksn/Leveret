@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
-using Mond;
-using System;
+﻿using System;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using Mond;
 
 namespace TIKSN.Leveret.BusinessLogic.Calculation
 {
@@ -17,7 +18,7 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<string> CalculateAsync(string sourceCode, CancellationToken cancellationToken)
+        public async Task<CalculationResult> CalculateAsync(string sourceCode, CancellationToken cancellationToken)
         {
             var state = new MondState()
             {
@@ -31,28 +32,17 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
             try
             {
                 var result = state.Run(sourceCode);
-                _logger.LogInformation($"Type: {result.Type}, IsEnumerable: {result.IsEnumerable}, IsLocked: {result.IsLocked}");
 
-                var globalVariables = state.Run("return global;").Object.Where(x=>x.Value.Type != MondValueType.Function && x.Value.Type != MondValueType.Object);
+                var globalVariables = state.Run("return global;").Object.Where(x => x.Value.Type != MondValueType.Function && x.Value.Type != MondValueType.Object);
 
-                foreach (var globalVariable in globalVariables)
-                {
-                    Debug.WriteLine($"{globalVariable.Key}: {globalVariable.Value}");
-
-                }
-                return string.Join(Environment.NewLine, globalVariables.Select(x => $"{x.Key}={x.Value}"));
-
-                if (result.Type == MondValueType.Undefined)
-                    return string.Empty;
-
-                return result.ToString();
+                return CalculationResult.CreateSuccess(globalVariables.Select(x => new GlobalVariable(x.Key.ToString(), x.Value.ToString())).ToImmutableList());
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-            }
 
-            return string.Empty;
+                return CalculationResult.CreateFailure(ex.Message);
+            }
         }
     }
 }

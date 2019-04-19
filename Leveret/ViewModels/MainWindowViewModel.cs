@@ -1,13 +1,13 @@
-﻿using ReactiveUI;
-using System;
+﻿using System;
 using System.Reactive.Linq;
+using ReactiveUI;
 using TIKSN.Leveret.BusinessLogic.Calculation;
 
 namespace TIKSN.Leveret.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly ObservableAsPropertyHelper<string> _executionResults;
+        private readonly ObservableAsPropertyHelper<CalculationResult> _executionResults;
         private string _inputSourceCode;
 
         public MainWindowViewModel(ICalculationService calculationService)
@@ -22,7 +22,7 @@ namespace TIKSN.Leveret.ViewModels
             .ToProperty(this, x => x.ExecutionResults);
         }
 
-        public string ExecutionResults => _executionResults.Value;
+        public CalculationResult ExecutionResults => _executionResults.Value;
 
         public string InputSourceCode
         {
