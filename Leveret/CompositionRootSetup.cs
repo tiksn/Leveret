@@ -26,6 +26,10 @@ namespace TIKSN.Leveret
             builder.RegisterType<ValueFormatHandler>()
                 .As<IRequestHandler<ValueFormatRequest, string>>()
                 .SingleInstance();
+
+            builder.RegisterType<ValueFormatBigIntegerBehavior>()
+                .As<IPipelineBehavior<ValueFormatRequest, string>>()
+                .SingleInstance();
         }
 
         protected override void ConfigureOptions(IServiceCollection services, IConfigurationRoot configuration)
