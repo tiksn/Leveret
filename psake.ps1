@@ -1,8 +1,21 @@
+Properties {
+    $version="0.0.1"
+}
+
 Task PublishChocolateyPackages -Depends PublishChocolateyX64Package,PublishChocolateyX86Package
 
-Task PublishChocolateyX64Package
+Task PublishChocolateyX64Package -Depends PackChocolateyX64Package
 
 Task PublishChocolateyX86Package
+
+Task PackChocolateyX64Package -Depends BuildWin7x64 {
+    $script:chocolateyInputWin7x64Folder = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "win7x64-in"
+    $script:chocolateyOutputWin7x64Folder = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "win7x64-out"
+    Copy-Item -Path $script:publishWin7x64Folder -Destination $script:chocolateyInputWin7x64Folder -Recurse
+    New-Item -Path $script:chocolateyOutputWin7x64Folder -ItemType Directory
+
+    Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:chocolateyOutputWin7x64Folder id=leveret-x64 version=$version }
+}
 
 Task Build -Depends BuildWin7x64,BuildWin7x86,BuildLinux64,BuildRhel64
 
@@ -31,7 +44,8 @@ Task BuildRhel64 -Depends PreBuild {
 }
 
 Task PreBuild -Depends Init,Clean {
-    $script:publishFolder = Join-Path -Path $script:trashFolder -ChildPath "publish"
+    $script:publishFolder = Join-Path -Path $script:trashFolder -ChildPath "bin"
+    $script:chocolateyPublishFolderFolder = Join-Path -Path $script:trashFolder -ChildPath "choco"
 
     New-Item -Path $script:publishFolder -ItemType Directory
 }
