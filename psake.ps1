@@ -8,13 +8,21 @@ Task PublishChocolateyX64Package -Depends PackChocolateyX64Package
 
 Task PublishChocolateyX86Package
 
-Task PackChocolateyX64Package -Depends BuildWin7x64 {
+Task PackChocolateyX64Package -Depends ZipBuildArtifacts {
     $script:chocolateyInputWin7x64Folder = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "win7x64-in"
     $script:chocolateyOutputWin7x64Folder = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "win7x64-out"
     Copy-Item -Path $script:publishWin7x64Folder -Destination $script:chocolateyInputWin7x64Folder -Recurse
     New-Item -Path $script:chocolateyOutputWin7x64Folder -ItemType Directory
 
     Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:chocolateyOutputWin7x64Folder id=leveret-x64 version=$version }
+}
+
+Task ZipBuildArtifacts -Depends BuildWin7x64,BuildWin7x86 {
+    $script:artifactsZipX64 = Join-Path -Path $script:trashFolder -ChildPath "win7x64.zip"
+    $script:artifactsZipX86 = Join-Path -Path $script:trashFolder -ChildPath "win7x86.zip"
+
+    Compress-Archive -Path "$script:publishWin7x64Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX64
+    Compress-Archive -Path "$script:publishWin7x86Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX86
 }
 
 Task Build -Depends BuildWin7x64,BuildWin7x86,BuildLinux64,BuildRhel64
