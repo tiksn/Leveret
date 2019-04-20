@@ -6,8 +6,8 @@
 
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="17*" />
-      <ColumnDefinition Width="3*" />
+      <ColumnDefinition Width="13*" />
+      <ColumnDefinition Width="5*" />
     </Grid.ColumnDefinitions>
 
     <Grid.RowDefinitions>
