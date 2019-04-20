@@ -1,3 +1,9 @@
+Task PublishChocolateyPackages -Depends PublishChocolateyX64Package,PublishChocolateyX86Package
+
+Task PublishChocolateyX64Package
+
+Task PublishChocolateyX86Package
+
 Task Build -Depends BuildWin7x64,BuildWin7x86,BuildLinux64,BuildRhel64
 
 Task BuildWin7x64 -Depends PreBuild {
