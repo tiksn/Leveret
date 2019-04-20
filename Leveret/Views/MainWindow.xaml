@@ -1,33 +1,48 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:TIKSN.Leveret.ViewModels;assembly=Leveret"
-        Icon="resm:TIKSN.Leveret.Assets.avalonia-logo.ico"
-        Title="Leveret">
+﻿<Window
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="clr-namespace:TIKSN.Leveret.ViewModels;assembly=Leveret"
+    Title="Leveret"
+    Icon="resm:TIKSN.Leveret.Assets.avalonia-logo.ico">
 
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="13*" />
-      <ColumnDefinition Width="5*" />
-    </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*" />
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
 
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="Auto" />
-    </Grid.RowDefinitions>
-    <TextBox TextWrapping="NoWrap" AcceptsReturn="True" FontSize="48" FontFamily="Consolas" Text="{Binding InputSourceCode}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox
+            AcceptsReturn="True"
+            FontFamily="Consolas"
+            FontSize="48"
+            Text="{Binding InputSourceCode}"
+            TextWrapping="NoWrap" />
 
-    <ListBox Grid.Column="1" Items="{Binding ExecutionResults.GlobalVariables, Mode=OneWay}" FontSize="48" FontFamily="Consolas">
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Name}" />
-            <TextBlock Text=" = " />
-            <TextBlock Text="{Binding Value}" />
-          </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
+        <ListBox
+            Grid.Column="1"
+            FontFamily="Consolas"
+            FontSize="48"
+            Items="{Binding ExecutionResults.GlobalVariables, Mode=OneWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Foreground="LightBlue" Text="{Binding Name}" />
+                        <TextBlock Foreground="Gray" Text=" = " />
+                        <TextBlock Foreground="LightGreen" Text="{Binding Value}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-    <TextBlock Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding ExecutionResults.Message}" Foreground="Red" Background="Yellow" />
-  </Grid>
+        <TextBlock
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Background="Yellow"
+            Foreground="Red"
+            Text="{Binding ExecutionResults.Message}" />
+    </Grid>
 </Window>
