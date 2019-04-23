@@ -5,7 +5,7 @@ Properties {
 Task PublishChocolateyPackage -Depends PackChocolateyPackage
 
 Task PackChocolateyPackage -Depends ZipBuildArtifacts {
-    Copy-Item -Path .\Chocolatey\tools\chocolateyInstall.ps1 -Destination chocoTools
+    Copy-Item -Path .\Chocolatey\tools\chocolateyInstall.ps1 -Destination $script:chocoTools
     Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:chocolateyOutputWin7x64Folder version=$version }
 }
 
