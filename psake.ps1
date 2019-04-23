@@ -2,24 +2,16 @@ Properties {
     $version="0.0.1"
 }
 
-Task PublishChocolateyPackages -Depends PublishChocolateyX64Package,PublishChocolateyX86Package
+Task PublishChocolateyPackage -Depends PackChocolateyPackage
 
-Task PublishChocolateyX64Package -Depends PackChocolateyX64Package
-
-Task PublishChocolateyX86Package
-
-Task PackChocolateyX64Package -Depends ZipBuildArtifacts {
-    $script:chocolateyInputWin7x64Folder = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "win7x64-in"
-    $script:chocolateyOutputWin7x64Folder = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "win7x64-out"
-    Copy-Item -Path $script:publishWin7x64Folder -Destination $script:chocolateyInputWin7x64Folder -Recurse
-    New-Item -Path $script:chocolateyOutputWin7x64Folder -ItemType Directory
-
-    Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:chocolateyOutputWin7x64Folder id=leveret-x64 version=$version }
+Task PackChocolateyPackage -Depends ZipBuildArtifacts {
+    Copy-Item -Path .\Chocolatey\tools\chocolateyInstall.ps1 -Destination chocoTools
+    Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:chocolateyOutputWin7x64Folder version=$version }
 }
 
 Task ZipBuildArtifacts -Depends BuildWin7x64,BuildWin7x86 {
-    $script:artifactsZipX64 = Join-Path -Path $script:trashFolder -ChildPath "win7x64.zip"
-    $script:artifactsZipX86 = Join-Path -Path $script:trashFolder -ChildPath "win7x86.zip"
+    $script:artifactsZipX64 = Join-Path -Path $script:chocoTools -ChildPath "win7x64.zip"
+    $script:artifactsZipX86 = Join-Path -Path $script:chocoTools -ChildPath "win7x86.zip"
 
     Compress-Archive -Path "$script:publishWin7x64Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX64
     Compress-Archive -Path "$script:publishWin7x86Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX86
@@ -54,8 +46,10 @@ Task BuildRhel64 -Depends PreBuild {
 Task PreBuild -Depends Init,Clean {
     $script:publishFolder = Join-Path -Path $script:trashFolder -ChildPath "bin"
     $script:chocolateyPublishFolderFolder = Join-Path -Path $script:trashFolder -ChildPath "choco"
-
-    New-Item -Path $script:publishFolder -ItemType Directory
+    $script:chocoTools = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "tools"
+    
+    New-Item -Path $script:chocoTools -ItemType Directory | Out-Null
+    New-Item -Path $script:publishFolder -ItemType Directory | Out-Null
 }
 Task Clean -Depends Init {
     Remove-Item -Path "*/bin" -Recurse -Force
@@ -67,7 +61,7 @@ Task Init {
    $ticks = $date.Ticks
    $trashFolder = Join-Path -Path . -ChildPath ".trash"
    $script:trashFolder = Join-Path -Path $trashFolder -ChildPath $ticks.ToString("D19")
-   New-Item -Path $script:trashFolder -ItemType Directory
+   New-Item -Path $script:trashFolder -ItemType Directory | Out-Null
    $script:trashFolder = Resolve-Path -Path $script:trashFolder
 }
  

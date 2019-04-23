@@ -3,7 +3,7 @@ param(
 )
 
 if ($IsWindows) {
-    Invoke-psake -buildFile .\psake.ps1 -taskList "PublishChocolateyPackages" -properties @{"version"=$version}
+    Invoke-psake -buildFile .\psake.ps1 -taskList "PublishChocolateyPackage" -properties @{"version"=$version}
 }
 
 if ($IsLinux) {
