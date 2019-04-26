@@ -6,7 +6,8 @@ Task PublishChocolateyPackage -Depends PackChocolateyPackage
 
 Task PackChocolateyPackage -Depends ZipBuildArtifacts {
     Copy-Item -Path .\Chocolatey\tools\chocolateyInstall.ps1 -Destination $script:chocoTools
-    Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:chocolateyOutputWin7x64Folder version=$version }
+    Copy-Item -Path .\Chocolatey\tools\LICENSE.txt -Destination $script:chocoLegal
+    Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:trashFolder version=$version }
 }
 
 Task ZipBuildArtifacts -Depends BuildWin7x64,BuildWin7x86 {
@@ -46,8 +47,10 @@ Task BuildRhel64 -Depends PreBuild {
 Task PreBuild -Depends Init,Clean {
     $script:publishFolder = Join-Path -Path $script:trashFolder -ChildPath "bin"
     $script:chocolateyPublishFolderFolder = Join-Path -Path $script:trashFolder -ChildPath "choco"
+    $script:chocoLegal = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "legal"
     $script:chocoTools = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "tools"
     
+    New-Item -Path $script:chocoLegal -ItemType Directory | Out-Null
     New-Item -Path $script:chocoTools -ItemType Directory | Out-Null
     New-Item -Path $script:publishFolder -ItemType Directory | Out-Null
 }
