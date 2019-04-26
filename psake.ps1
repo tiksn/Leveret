@@ -17,7 +17,9 @@ Task PackChocolateyPackage -Depends ZipBuildArtifacts {
     Add-Content -Path $verificationFilePath -Value ("File Hash: win7x64.zip - " + $zipX64Hash.Algorithm + " - " + $zipX64Hash.Hash)
     Add-Content -Path $verificationFilePath -Value ("File Hash: win7x86.zip - " + $zipX86Hash.Algorithm + " - " + $zipX86Hash.Hash)
     
-    Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:trashFolder version=$version }
+    $chocoNuspec = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath leveret.nuspec
+    Copy-Item -Path ".\Chocolatey\leveret.nuspec" -Destination $chocoNuspec
+    Exec { choco pack $chocoNuspec --version $version --outputdirectory $script:trashFolder version=$version }
 }
 
 Task ZipBuildArtifacts -Depends BuildWin7x64,BuildWin7x86 {
