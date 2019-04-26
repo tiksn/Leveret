@@ -7,6 +7,16 @@ Task PublishChocolateyPackage -Depends PackChocolateyPackage
 Task PackChocolateyPackage -Depends ZipBuildArtifacts {
     Copy-Item -Path .\Chocolatey\tools\chocolateyInstall.ps1 -Destination $script:chocoTools
     Copy-Item -Path .\Chocolatey\tools\LICENSE.txt -Destination $script:chocoLegal
+    Copy-Item -Path .\Chocolatey\tools\VERIFICATION.txt -Destination $script:chocoLegal
+
+    $verificationFilePath = Join-Path -Path $script:chocoLegal -ChildPath VERIFICATION.txt
+
+    $zipX64Hash = Get-FileHash -Path $script:artifactsZipX64
+    $zipX86Hash = Get-FileHash -Path $script:artifactsZipX86
+
+    Add-Content -Path $verificationFilePath -Value ("File Hash: win7x64.zip - " + $zipX64Hash.Algorithm + " - " + $zipX64Hash.Hash)
+    Add-Content -Path $verificationFilePath -Value ("File Hash: win7x86.zip - " + $zipX86Hash.Algorithm + " - " + $zipX86Hash.Hash)
+    
     Exec { choco pack ".\Chocolatey\leveret.nuspec" --version $version --outputdirectory $script:trashFolder version=$version }
 }
 
