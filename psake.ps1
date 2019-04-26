@@ -33,13 +33,13 @@ Task Build -Depends BuildWin7x64,BuildWin7x86,BuildLinux64,BuildRhel64
 Task BuildWin7x64 -Depends PreBuild {
    $script:publishWin7x64Folder = Join-Path -Path $script:publishFolder -ChildPath "win7x64"
 
-   Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishWin7x64Folder --self-contained --runtime win7-x64 }
+   Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishWin7x64Folder --self-contained --runtime win7-x64 /p:Version=$version }
 }
 
 Task BuildWin7x86 -Depends PreBuild {
     $script:publishWin7x86Folder = Join-Path -Path $script:publishFolder -ChildPath "win7x86"
  
-    Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishWin7x86Folder --self-contained --runtime win7-x86 }
+    Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishWin7x86Folder --self-contained --runtime win7-x86 /p:Version=$version }
 }
 
 Task BuildLinux64 -Depends PreBuild {
