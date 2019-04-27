@@ -2,7 +2,9 @@ Properties {
     $version="0.0.1"
 }
 
-Task PublishChocolateyPackage -Depends PackChocolateyPackage
+Task PublishChocolateyPackage -Depends PackChocolateyPackage {
+    Exec { choco push $script:chocoNupkg }
+}
 
 Task PackChocolateyPackage -Depends ZipBuildArtifacts {
     Copy-Item -Path .\Chocolatey\tools\chocolateyInstall.ps1 -Destination $script:chocoTools
@@ -20,6 +22,7 @@ Task PackChocolateyPackage -Depends ZipBuildArtifacts {
     $chocoNuspec = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath leveret.nuspec
     Copy-Item -Path ".\Chocolatey\leveret.nuspec" -Destination $chocoNuspec
     Exec { choco pack $chocoNuspec --version $version --outputdirectory $script:trashFolder version=$version }
+    $script:chocoNupkg = Join-Path -Path $script:trashFolder -ChildPath "Leveret.$version.nupkg"
 }
 
 Task ZipBuildArtifacts -Depends BuildWin7x64,BuildWin7x86 {
