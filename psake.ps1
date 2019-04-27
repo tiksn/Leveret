@@ -6,6 +6,13 @@ Task PublishChocolateyPackage -Depends PackChocolateyPackage {
     Exec { choco push $script:chocoNupkg }
 }
 
+Task PublishLinuxPackages -Depends PackLinuxPackage {
+    #
+}
+
+Task PackLinuxPackage -Depends BuildLinux64,BuildRhel64 {
+}
+
 Task PackChocolateyPackage -Depends ZipBuildArtifacts {
     Copy-Item -Path .\Chocolatey\tools\chocolateyInstall.ps1 -Destination $script:chocoTools
     Copy-Item -Path .\Chocolatey\tools\LICENSE.txt -Destination $script:chocoLegal
