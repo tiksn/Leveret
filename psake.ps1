@@ -6,7 +6,7 @@ Task PublishChocolateyPackage -Depends PackChocolateyPackage {
     Exec { choco push $script:chocoNupkg }
 }
 
-Task PublishLinuxPackages -Depends PackLinuxPackage {
+Task PublishLinuxRpmPackages -Depends PackLinuxPackage {
     #
 }
 
