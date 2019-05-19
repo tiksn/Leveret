@@ -32,7 +32,9 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
             {
                 var result = state.Run(sourceCode);
 
-                var globalVariables = state.Run("return global;").Object.Where(x => x.Value.Type != MondValueType.Function && x.Value.Type != MondValueType.Object);
+                var globalVariable = state.Run("return global;");
+
+                var globalVariables = globalVariable.Object.Where(x => x.Value.Type != MondValueType.Function && x.Value.Type != MondValueType.Object);
 
                 var globalVariablesTasks = globalVariables.Select(x => _mediator.Send(new ValueFormatRequest(x.Value), cancellationToken));
 
