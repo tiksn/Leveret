@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using TIKSN.Leveret.BusinessLogic.Factories;
 using TIKSN.Leveret.BusinessLogic.Messages;
 
 namespace TIKSN.Leveret.BusinessLogic.Calculation
@@ -14,23 +15,18 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
     {
         private readonly ILogger<CalculationService> _logger;
         private readonly IMediator _mediator;
+        private readonly IMondStateFactory _mondStateFactory;
 
-        public CalculationService(IMediator mediator, ILogger<CalculationService> logger)
+        public CalculationService(IMediator mediator, IMondStateFactory mondStateFactory, ILogger<CalculationService> logger)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _mondStateFactory = mondStateFactory ?? throw new ArgumentNullException(nameof(mondStateFactory));
         }
 
         public async Task<CalculationResult> CalculateAsync(string sourceCode, CancellationToken cancellationToken)
         {
-            var state = new MondState()
-            {
-                Options = new MondCompilerOptions()
-                {
-                    MakeRootDeclarationsGlobal = true,
-                    UseImplicitGlobals = true
-                }
-            };
+            var state = _mondStateFactory.Create();
 
             try
             {
