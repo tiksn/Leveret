@@ -1,7 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Logging.Serilog;
+using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.IO;
 using TIKSN.Leveret.ViewModels;
 using TIKSN.Leveret.Views;
 
@@ -23,7 +25,26 @@ namespace TIKSN.Leveret
             var configurationRoot = configurationRootSetup.GetConfigurationRoot();
             var compositionRootSetup = new CompositionRootSetup(configurationRoot);
             var serviceProvider = compositionRootSetup.CreateServiceProvider();
-            BuildAvaloniaApp().Start<MainWindow>(() => serviceProvider.GetRequiredService<MainWindowViewModel>());
+
+            var parser = new Parser(settings =>
+                         {
+                             settings.AutoHelp = true;
+                             settings.AutoVersion = true;
+                             settings.IgnoreUnknownArguments = false;
+                             settings.HelpWriter = Console.Out;
+                         });
+            parser.ParseArguments<CommandLineOptions>(args)
+                .WithParsed(options =>
+                {
+                    var mainWindowViewModel = serviceProvider.GetRequiredService<MainWindowViewModel>();
+
+                    if (options.File != null)
+                    {
+                        mainWindowViewModel.InputSourceCode = File.ReadAllText(options.File);
+                    }
+
+                    BuildAvaloniaApp().Start<MainWindow>(() => mainWindowViewModel);
+                });
         }
     }
 }
