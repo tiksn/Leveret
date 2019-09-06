@@ -46,7 +46,7 @@ namespace TIKSN.Leveret
         {
             base.ConfigureServices(services);
 
-            services.AddMediatR();
+            services.AddMediatR(GetType().Assembly);
         }
     }
 }
