@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using TIKSN.Analytics.Logging;
 using TIKSN.DependencyInjection;
 using TIKSN.Leveret.BusinessLogic.Calculation;
@@ -23,7 +24,6 @@ namespace TIKSN.Leveret
             builder.RegisterType<MainWindowViewModel>().AsSelf().SingleInstance();
             builder.RegisterType<CalculationService>().As<ICalculationService>().SingleInstance();
             builder.RegisterType<MondStateFactory>().As<IMondStateFactory>().SingleInstance();
-            builder.RegisterType<LoggingSetup>().As<ILoggingSetup>().SingleInstance();
 
             builder.RegisterType<ValueFormatHandler>()
                 .As<IRequestHandler<ValueFormatRequest, string>>()
@@ -40,6 +40,11 @@ namespace TIKSN.Leveret
 
         protected override void ConfigureOptions(IServiceCollection services, IConfigurationRoot configuration)
         {
+        }
+
+        protected override IEnumerable<ILoggingSetup> GetLoggingSetups()
+        {
+            yield return new LoggingSetup();
         }
 
         protected override void ConfigureServices(IServiceCollection services)

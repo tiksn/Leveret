@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Logging.Serilog;
+using Avalonia.ReactiveUI;
 using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 using System;
