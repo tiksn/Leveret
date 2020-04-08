@@ -5,15 +5,18 @@ namespace TIKSN.Leveret
 {
     public class LoggingSetup : LoggingSetupBase
     {
-        public LoggingSetup(ILoggerFactory loggerFactory) : base(loggerFactory)
+        public LoggingSetup() : base()
         {
         }
 
-        public override void Setup()
+        public override void Setup(ILoggingBuilder loggingBuilder)
         {
-            base.Setup();
+            base.Setup(loggingBuilder);
 
-            _loggerFactory.AddConsole(includeScopes: true);
+            loggingBuilder.AddConsole(options =>
+            {
+                options.IncludeScopes = true;
+            });
         }
     }
 }
