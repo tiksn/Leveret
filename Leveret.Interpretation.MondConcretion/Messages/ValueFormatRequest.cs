@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Mond;
 
-namespace TIKSN.Leveret.BusinessLogic.Messages
+namespace TIKSN.Leveret.Interpretation.MondConcretion.Messages
 {
     public class ValueFormatRequest : IRequest<string>
     {

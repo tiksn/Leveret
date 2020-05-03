@@ -1,28 +1,33 @@
-﻿using System;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
-using ReactiveUI;
-using TIKSN.Leveret.BusinessLogic.Calculation;
+using TIKSN.Leveret.Interpretation.Abstractions;
 
 namespace TIKSN.Leveret.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly ObservableAsPropertyHelper<CalculationResult> _executionResults;
+        private readonly ObservableAsPropertyHelper<InterpretationResult> _executionResults;
         private string _inputSourceCode;
 
-        public MainWindowViewModel(ICalculationService calculationService)
+        public MainWindowViewModel(IInterpretationService interpretationService)
         {
+            if (interpretationService == null)
+            {
+                throw new ArgumentNullException(nameof(interpretationService));
+            }
+
             _executionResults = this
             .WhenAnyValue(x => x.InputSourceCode)
             .Throttle(TimeSpan.FromMilliseconds(800))
             .DistinctUntilChanged()
             .Where(code => !string.IsNullOrWhiteSpace(code))
-            .SelectMany(calculationService.CalculateAsync)
+            .SelectMany(interpretationService.InterpretationAsync)
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.ExecutionResults);
         }
 
-        public CalculationResult ExecutionResults => _executionResults.Value;
+        public InterpretationResult ExecutionResults => _executionResults.Value;
 
         public string InputSourceCode
         {

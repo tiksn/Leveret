@@ -6,25 +6,26 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using TIKSN.Leveret.BusinessLogic.Factories;
-using TIKSN.Leveret.BusinessLogic.Messages;
+using TIKSN.Leveret.Interpretation.Abstractions;
+using TIKSN.Leveret.Interpretation.MondConcretion.Factories;
+using TIKSN.Leveret.Interpretation.MondConcretion.Messages;
 
-namespace TIKSN.Leveret.BusinessLogic.Calculation
+namespace TIKSN.Leveret.Interpretation.MondConcretion
 {
-    public class CalculationService : ICalculationService
+    public class InterpretationService : IInterpretationService
     {
-        private readonly ILogger<CalculationService> _logger;
+        private readonly ILogger<InterpretationService> _logger;
         private readonly IMediator _mediator;
         private readonly IMondStateFactory _mondStateFactory;
 
-        public CalculationService(IMediator mediator, IMondStateFactory mondStateFactory, ILogger<CalculationService> logger)
+        public InterpretationService(IMediator mediator, IMondStateFactory mondStateFactory, ILogger<InterpretationService> logger)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mondStateFactory = mondStateFactory ?? throw new ArgumentNullException(nameof(mondStateFactory));
         }
 
-        public async Task<CalculationResult> CalculateAsync(string sourceCode, CancellationToken cancellationToken)
+        public async Task<InterpretationResult> InterpretationAsync(string sourceCode, CancellationToken cancellationToken)
         {
             var state = _mondStateFactory.Create();
 
@@ -44,13 +45,13 @@ namespace TIKSN.Leveret.BusinessLogic.Calculation
 
                 var variables = globalVariables.Zip(values, (g, v) => new GlobalVariable(g.Key.ToString(), v)).ToImmutableList();
 
-                return CalculationResult.CreateSuccess(variables);
+                return InterpretationResult.CreateSuccess(variables);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
 
-                return CalculationResult.CreateFailure(ex.Message);
+                return InterpretationResult.CreateFailure(ex.Message);
             }
         }
     }

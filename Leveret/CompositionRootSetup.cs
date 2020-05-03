@@ -5,10 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using TIKSN.Analytics.Logging;
 using TIKSN.DependencyInjection;
-using TIKSN.Leveret.BusinessLogic.Calculation;
-using TIKSN.Leveret.BusinessLogic.Factories;
-using TIKSN.Leveret.BusinessLogic.Handlers;
-using TIKSN.Leveret.BusinessLogic.Messages;
+using TIKSN.Leveret.Interpretation.Abstractions;
+using TIKSN.Leveret.Interpretation.MondConcretion;
+using TIKSN.Leveret.Interpretation.MondConcretion.Factories;
+using TIKSN.Leveret.Interpretation.MondConcretion.Handlers;
+using TIKSN.Leveret.Interpretation.MondConcretion.Messages;
 using TIKSN.Leveret.ViewModels;
 
 namespace TIKSN.Leveret
@@ -22,7 +23,7 @@ namespace TIKSN.Leveret
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             builder.RegisterType<MainWindowViewModel>().AsSelf().SingleInstance();
-            builder.RegisterType<CalculationService>().As<ICalculationService>().SingleInstance();
+            builder.RegisterType<InterpretationService>().As<IInterpretationService>().SingleInstance();
             builder.RegisterType<MondStateFactory>().As<IMondStateFactory>().SingleInstance();
 
             builder.RegisterType<ValueFormatHandler>()

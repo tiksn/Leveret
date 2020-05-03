@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TIKSN.Leveret.BusinessLogic.Calculation
+namespace TIKSN.Leveret.Interpretation.Abstractions
 {
     public sealed class GlobalVariable
     {

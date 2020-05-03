@@ -4,9 +4,9 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using TIKSN.Leveret.BusinessLogic.Messages;
+using TIKSN.Leveret.Interpretation.MondConcretion.Messages;
 
-namespace TIKSN.Leveret.BusinessLogic.Handlers
+namespace TIKSN.Leveret.Interpretation.MondConcretion.Handlers
 {
     public class ValueFormatArrayBehavior : IPipelineBehavior<ValueFormatRequest, string>
     {
