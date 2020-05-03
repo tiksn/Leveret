@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leveret", "Leveret\Leveret.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{7DF46A97-EB84-42BC-9297-4F9420D1EAEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leveret.Interpretation.Abstractions", "Leveret.Interpretation.Abstractions\Leveret.Interpretation.Abstractions.csproj", "{57870DD3-F9BC-456E-A055-A73425D50DE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7DF46A97-EB84-42BC-9297-4F9420D1EAEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF46A97-EB84-42BC-9297-4F9420D1EAEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DF46A97-EB84-42BC-9297-4F9420D1EAEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57870DD3-F9BC-456E-A055-A73425D50DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57870DD3-F9BC-456E-A055-A73425D50DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57870DD3-F9BC-456E-A055-A73425D50DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57870DD3-F9BC-456E-A055-A73425D50DE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
