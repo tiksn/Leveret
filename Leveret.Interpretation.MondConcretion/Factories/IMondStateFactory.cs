@@ -1,6 +1,6 @@
 ﻿using Mond;
 
-namespace TIKSN.Leveret.Interpretation.MondConcretion
+namespace TIKSN.Leveret.Interpretation.MondConcretion.Factories
 {
     public interface IMondStateFactory
     {
