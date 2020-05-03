@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>TIKSN.Leveret.Interpretation.MondConcretion</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Leveret.Interpretation.Abstractions\Leveret.Interpretation.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
