@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mond" Version="0.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Leveret.Interpretation.Abstractions\Leveret.Interpretation.Abstractions.csproj" />
   </ItemGroup>
 
