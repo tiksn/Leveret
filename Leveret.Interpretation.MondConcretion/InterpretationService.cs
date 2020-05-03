@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using Mond;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TIKSN.Leveret.Interpretation.Abstractions;
+using TIKSN.Leveret.Interpretation.MondConcretion.Factories;
 
 namespace TIKSN.Leveret.Interpretation.MondConcretion
 {
@@ -15,7 +16,7 @@ namespace TIKSN.Leveret.Interpretation.MondConcretion
         private readonly IMediator _mediator;
         private readonly IMondStateFactory _mondStateFactory;
 
-        public CalculationService(IMediator mediator, IMondStateFactory mondStateFactory, ILogger<InterpretationService> logger)
+        public InterpretationService(IMediator mediator, IMondStateFactory mondStateFactory, ILogger<InterpretationService> logger)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
