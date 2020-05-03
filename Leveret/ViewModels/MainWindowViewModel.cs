@@ -13,7 +13,9 @@ namespace TIKSN.Leveret.ViewModels
         public MainWindowViewModel(IInterpretationService interpretationService)
         {
             if (interpretationService == null)
+            {
                 throw new ArgumentNullException(nameof(interpretationService));
+            }
 
             _executionResults = this
             .WhenAnyValue(x => x.InputSourceCode)
