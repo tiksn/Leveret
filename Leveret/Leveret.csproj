@@ -34,5 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+    <ProjectReference Include="..\Leveret.Interpretation.Abstractions\Leveret.Interpretation.Abstractions.csproj" />
+    <ProjectReference Include="..\Leveret.Interpretation.MondConcretion\Leveret.Interpretation.MondConcretion.csproj" />
   </ItemGroup>
 </Project>
