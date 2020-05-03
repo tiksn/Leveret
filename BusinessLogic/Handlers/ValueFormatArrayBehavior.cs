@@ -21,7 +21,7 @@ namespace TIKSN.Leveret.BusinessLogic.Handlers
         {
             if (request.MondValue.Type == MondValueType.Array)
             {
-                var itemTasks = request.MondValue.Array.Select(x => _mediator.Send(new ValueFormatRequest(x), cancellationToken));
+                var itemTasks = request.MondValue.AsList.Select(x => _mediator.Send(new ValueFormatRequest(x), cancellationToken));
 
                 var itemValues = await Task.WhenAll(itemTasks);
 
