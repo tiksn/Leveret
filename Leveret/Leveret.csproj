@@ -22,7 +22,7 @@
     <None Remove="Models\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.10" />
+    <PackageReference Include="Avalonia" Version="0.10.11" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.10" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.10" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
