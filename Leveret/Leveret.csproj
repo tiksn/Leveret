@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.14" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.14" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.10.15" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.15" />
     <PackageReference Include="CommandLineParser" Version="2.9.1" />
     <PackageReference Include="MediatR" Version="10.0.1" />
