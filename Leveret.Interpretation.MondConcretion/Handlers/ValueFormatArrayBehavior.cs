@@ -17,7 +17,7 @@ namespace TIKSN.Leveret.Interpretation.MondConcretion.Handlers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        public async Task<string> Handle(ValueFormatRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<string> next)
+        public async Task<string> Handle(ValueFormatRequest request, RequestHandlerDelegate<string> next, CancellationToken cancellationToken)
         {
             if (request.MondValue.Type == MondValueType.Array)
             {
