@@ -9,7 +9,7 @@ namespace TIKSN.Leveret.Interpretation.MondConcretion.Handlers
 {
     public class ValueFormatBigIntegerBehavior : IPipelineBehavior<ValueFormatRequest, string>
     {
-        public Task<string> Handle(ValueFormatRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<string> next)
+        public Task<string> Handle(ValueFormatRequest request, RequestHandlerDelegate<string> next, CancellationToken cancellationToken)
         {
             if (request.MondValue.Type == MondValueType.Number && BigInteger.TryParse(request.MondValue.ToString(), out BigInteger bigInteger))
             {
