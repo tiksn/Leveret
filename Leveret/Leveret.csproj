@@ -30,7 +30,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
-    <PackageReference Include="TIKSN-Framework" Version="4.3.2" />
+    <PackageReference Include="TIKSN-Framework" Version="4.3.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Leveret.Interpretation.Abstractions\Leveret.Interpretation.Abstractions.csproj" />
