@@ -1,0 +1,9 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TIKSN.Leveret.App"
+             xmlns:local="clr-namespace:TIKSN.Leveret">
+
+    <Application.Styles>
+        <FluentTheme Mode="Dark"/>
+    </Application.Styles>
+</Application>
