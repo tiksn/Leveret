@@ -16,7 +16,7 @@ namespace TIKSN.Leveret
                 .UsePlatformDetect()
                 .UseReactiveUI()
                 .UseTXFX()
-                .LogToDebug();
+                .LogToTrace();
 
         private static void Main(string[] args)
         {
