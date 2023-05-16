@@ -3,10 +3,6 @@
              x:Class="TIKSN.Leveret.App"
              xmlns:local="clr-namespace:TIKSN.Leveret">
 
-    <Application.DataTemplates>
-        <local:ViewLocator/>
-    </Application.DataTemplates>
-
     <Application.Styles>
         <FluentTheme Mode="Dark"/>
     </Application.Styles>
