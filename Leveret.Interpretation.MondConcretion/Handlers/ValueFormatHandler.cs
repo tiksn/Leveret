@@ -1,11 +1,13 @@
-﻿using MediatR;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using TIKSN.Leveret.Interpretation.MondConcretion.Messages;
 
 namespace TIKSN.Leveret.Interpretation.MondConcretion.Handlers
 {
-    public class ValueFormatHandler : RequestHandler<ValueFormatRequest, string>
+    public class ValueFormatHandler : IRequestHandler<ValueFormatRequest, string>
     {
-        protected override string Handle(ValueFormatRequest request)
+        public async Task<string> Handle(ValueFormatRequest request, CancellationToken cancellationToken)
         {
             return request.MondValue.ToString();
         }
