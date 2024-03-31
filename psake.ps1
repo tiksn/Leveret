@@ -1,5 +1,5 @@
 Properties {
-    $version = "0.0.1"
+    $version = '0.0.1'
 }
 
 Task PublishChocolateyPackage -depends PackChocolateyPackage {
@@ -10,7 +10,7 @@ Task PublishLinuxRpmPackages -depends PackLinuxPackage {
     #
 }
 
-Task PackLinuxPackage -depends BuildLinux64, BuildRhel64 {
+Task PackLinuxPackage -depends BuildLinux64 {
 }
 
 Task PackChocolateyPackage -depends ZipBuildArtifacts {
@@ -23,55 +23,49 @@ Task PackChocolateyPackage -depends ZipBuildArtifacts {
     $zipX64Hash = Get-FileHash -Path $script:artifactsZipX64
     $zipX86Hash = Get-FileHash -Path $script:artifactsZipX86
 
-    Add-Content -Path $verificationFilePath -Value ("File Hash: win7x64.zip - " + $zipX64Hash.Algorithm + " - " + $zipX64Hash.Hash)
-    Add-Content -Path $verificationFilePath -Value ("File Hash: win7x86.zip - " + $zipX86Hash.Algorithm + " - " + $zipX86Hash.Hash)
-    
+    Add-Content -Path $verificationFilePath -Value ('File Hash: winx64.zip - ' + $zipX64Hash.Algorithm + ' - ' + $zipX64Hash.Hash)
+    Add-Content -Path $verificationFilePath -Value ('File Hash: winx86.zip - ' + $zipX86Hash.Algorithm + ' - ' + $zipX86Hash.Hash)
+
     $chocoNuspec = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath leveret.nuspec
-    Copy-Item -Path ".\Chocolatey\leveret.nuspec" -Destination $chocoNuspec
+    Copy-Item -Path '.\Chocolatey\leveret.nuspec' -Destination $chocoNuspec
     Exec { choco pack $chocoNuspec --version $version --outputdirectory $script:trashFolder version=$version }
     $script:chocoNupkg = Join-Path -Path $script:trashFolder -ChildPath "Leveret.$version.nupkg"
 }
 
-Task ZipBuildArtifacts -depends BuildWin7x64, BuildWin7x86 {
-    $script:artifactsZipX64 = Join-Path -Path $script:chocoTools -ChildPath "win7x64.zip"
-    $script:artifactsZipX86 = Join-Path -Path $script:chocoTools -ChildPath "win7x86.zip"
+Task ZipBuildArtifacts -depends BuildWinX64, BuildWinX86 {
+    $script:artifactsZipX64 = Join-Path -Path $script:chocoTools -ChildPath 'winx64.zip'
+    $script:artifactsZipX86 = Join-Path -Path $script:chocoTools -ChildPath 'winx86.zip'
 
-    Compress-Archive -Path "$script:publishWin7x64Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX64
-    Compress-Archive -Path "$script:publishWin7x86Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX86
+    Compress-Archive -Path "$script:publishWinX64Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX64
+    Compress-Archive -Path "$script:publishWinX86Folder\*" -CompressionLevel Optimal -DestinationPath $script:artifactsZipX86
 }
 
-Task Build -depends BuildWin7x64, BuildWin7x86, BuildLinux64, BuildRhel64
+Task Build -depends BuildWinX64, BuildWinX86, BuildLinux64
 
-Task BuildWin7x64 -depends PreBuild {
-    $script:publishWin7x64Folder = Join-Path -Path $script:publishFolder -ChildPath "win7x64"
+Task BuildWinX64 -depends PreBuild {
+    $script:publishWinX64Folder = Join-Path -Path $script:publishFolder -ChildPath 'winx64'
 
-    Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishWin7x64Folder --self-contained --runtime win7-x64 /p:Version=$version }
+    Exec { dotnet publish '.\Leveret\Leveret.csproj' --output $script:publishWinX64Folder --self-contained --runtime win-x64 /p:Version=$version }
 }
 
-Task BuildWin7x86 -depends PreBuild {
-    $script:publishWin7x86Folder = Join-Path -Path $script:publishFolder -ChildPath "win7x86"
- 
-    Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishWin7x86Folder --self-contained --runtime win7-x86 /p:Version=$version }
+Task BuildWinX86 -depends PreBuild {
+    $script:publishWinX86Folder = Join-Path -Path $script:publishFolder -ChildPath 'winx86'
+
+    Exec { dotnet publish '.\Leveret\Leveret.csproj' --output $script:publishWinX86Folder --self-contained --runtime win-x86 /p:Version=$version }
 }
 
 Task BuildLinux64 -depends PreBuild {
-    $script:publishLinux64Folder = Join-Path -Path $script:publishFolder -ChildPath "linux64"
- 
-    Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishLinux64Folder --self-contained --runtime linux-x64 }
-}
+    $script:publishLinux64Folder = Join-Path -Path $script:publishFolder -ChildPath 'linux64'
 
-Task BuildRhel64 -depends PreBuild {
-    $script:publishRhel64Folder = Join-Path -Path $script:publishFolder -ChildPath "rhel64"
- 
-    Exec { dotnet publish ".\Leveret\Leveret.csproj" --output $script:publishRhel64Folder --self-contained --runtime rhel-x64 }
+    Exec { dotnet publish '.\Leveret\Leveret.csproj' --output $script:publishLinux64Folder --self-contained --runtime linux-x64 }
 }
 
 Task PreBuild -depends Restore {
-    $script:publishFolder = Join-Path -Path $script:trashFolder -ChildPath "bin"
-    $script:chocolateyPublishFolderFolder = Join-Path -Path $script:trashFolder -ChildPath "choco"
-    $script:chocoLegal = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "legal"
-    $script:chocoTools = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath "tools"
-    
+    $script:publishFolder = Join-Path -Path $script:trashFolder -ChildPath 'bin'
+    $script:chocolateyPublishFolderFolder = Join-Path -Path $script:trashFolder -ChildPath 'choco'
+    $script:chocoLegal = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath 'legal'
+    $script:chocoTools = Join-Path -Path $script:chocolateyPublishFolderFolder -ChildPath 'tools'
+
     New-Item -Path $script:chocoLegal -ItemType Directory | Out-Null
     New-Item -Path $script:chocoTools -ItemType Directory | Out-Null
     New-Item -Path $script:publishFolder -ItemType Directory | Out-Null
@@ -82,16 +76,15 @@ Task Restore -depends Clean {
 }
 
 Task Clean -depends Init {
-    Remove-Item -Path "*/bin" -Recurse -Force
-    Remove-Item -Path "*/obj" -Recurse -Force
+    Remove-Item -Path '*/bin' -Recurse -Force
+    Remove-Item -Path '*/obj' -Recurse -Force
 }
 
 Task Init {
     $date = Get-Date
     $ticks = $date.Ticks
-    $trashFolder = Join-Path -Path . -ChildPath ".trash"
-    $script:trashFolder = Join-Path -Path $trashFolder -ChildPath $ticks.ToString("D19")
+    $trashFolder = Join-Path -Path . -ChildPath '.trash'
+    $script:trashFolder = Join-Path -Path $trashFolder -ChildPath $ticks.ToString('D19')
     New-Item -Path $script:trashFolder -ItemType Directory | Out-Null
     $script:trashFolder = Resolve-Path -Path $script:trashFolder
 }
- 
