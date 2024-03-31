@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Leveret/bin/Debug/net7.0/Leveret.dll",
+            "program": "${workspaceFolder}/Leveret/bin/Debug/net8.0/Leveret.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Leveret",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
