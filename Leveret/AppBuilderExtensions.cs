@@ -1,11 +1,10 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
 
 namespace TIKSN.Leveret
 {
     public static class AppBuilderExtensions
     {
-        public static TAppBuilder UseTXFX<TAppBuilder>(this TAppBuilder builder)
-            where TAppBuilder : AppBuilderBase<TAppBuilder>, new()
+        public static AppBuilder UseTXFX(this AppBuilder builder)
         {
             return builder.AfterSetup(_ =>
             {
