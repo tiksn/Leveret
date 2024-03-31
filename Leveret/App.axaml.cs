@@ -25,7 +25,7 @@ public partial class App : Application
                 services.AddSingleton<MainWindowViewModel>();
                 services.AddSingleton<IInterpretationService, InterpretationService>();
                 services.AddSingleton<IMondStateFactory, MondStateFactory>();
-                services.AddFrameworkPlatform();
+                services.AddFrameworkCore();
                 services.AddMediatR(config =>
                 {
                     config.RegisterServicesFromAssembly(this.GetType().Assembly);
