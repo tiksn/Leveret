@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Leveret.Interpretation.Abstractions/Leveret.Interpretation.Abstractions.csproj" />
+  <Project Path="Leveret.Interpretation.MondConcretion/Leveret.Interpretation.MondConcretion.csproj" />
+  <Project Path="Leveret/Leveret.csproj" />
+</Solution>
