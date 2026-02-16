@@ -28,7 +28,7 @@
     <PackageReference Include="MediatR" Version="14.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="10.0.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.3" />
-    <PackageReference Include="TIKSN-Framework" Version="5.6.1" />
+    <PackageReference Include="TIKSN-Framework" Version="5.6.2" />
   </ItemGroup>
 
   <ItemGroup>
